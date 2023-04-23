@@ -4,7 +4,7 @@ import pandas as pd
 
 class Iproccess(ABC):
     @abstractmethod
-    def __init__(self):
+    def __init__(self, ):
         pass
 
     @abstractmethod
