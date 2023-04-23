@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import pandas as pd
-from SRC.Foundation.deafault_Pipeline.Imodel import Imodel
-from SRC.Foundation.deafault_Pipeline.IproccessMethod import IDataProcessor
+from src.Foundation.default_pipeline.Imodel import Imodel
+from src.Foundation.default_pipeline.IproccessMethod import IDataProcessor
 
 
 class Ipipeline:
