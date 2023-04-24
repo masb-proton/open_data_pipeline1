@@ -1,10 +1,11 @@
 import pandas as pd
 from src.Foundation.default_pipeline.Isave import Isave
-from src.Foundation.default_pipeline.Iimporter import IImporter, ImportData, AssetClass
+from src.Foundation.default_pipeline.Iimporter import IImporter
 from src.Foundation.default_pipeline.Ipipeline import Ipipeline
+from src.Foundation.utils import ImportData, AssetClass
 from src.Foundation.default_pipeline.Imodel import Imodel
 from src.Foundation.default_pipeline.Iproccess import Iproccess
-from src.Foundation.default_pipeline.IproccessMethod import IDataProcessor
+from src.Foundation.default_pipeline.IproccessMethod import ProcessingMethod
 import yfinance
 from datetime import datetime
 
@@ -30,21 +31,31 @@ class yf_Import(IImporter):
 
 
 class DefaultProcess(Iproccess):
+    def __init__(self, import_data: ImportData):
+        self.import_data = import_data
 
-    def __init__(self, ):
-        pass
-
-    def Iproccess(self, DF: pd.DataFrame) -> pd.DataFrame:
-        pass
+    def processor(self) -> ImportData:
+        return self.import_data
 
 
 class CSVSave(Isave):
-    def Isave(self, tDF: pd.DataFrame) -> None:
-        return tDF.to_csv("")
+    def save(self) -> ImportData:
+        return self.import_data
 
 
-yf_import = yf_Import("SPY")
-pd_df = yf_import._import()
-asset_class = yf_import.find_asset_class()
-all_data = yf_import.return_data()
-print(all_data)
+class LinearMethod(Imodel):
+
+    def __init__(self):
+        pass
+
+    def run_model(self, DF: pd.DataFrame) -> pd.DataFrame:
+        pass
+
+
+class default_pipeline(Ipipeline):
+    pass
+
+
+pm = ProcessingMethod(yf_Import, DefaultProcess, CSVSave, "SPY")
+
+print(pm.run_data_proccess())

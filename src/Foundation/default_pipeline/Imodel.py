@@ -8,5 +8,5 @@ class Imodel(ABC):
         pass
 
     @abstractmethod
-    def run_Model(self, DF: pd.DataFrame) -> pd.DataFrame:
+    def run_model(self, DF: pd.DataFrame) -> pd.DataFrame:
         pass

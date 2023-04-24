@@ -2,29 +2,7 @@ from abc import ABC, abstractmethod
 import pandas as pd
 from dataclasses import dataclass
 from typing import Union
-
-
-class AssetClass:
-    class ETF:
-        pass
-
-    class CryptoCurrency:
-        pass
-
-    class Stock:
-        pass
-
-    class MLP:
-        pass
-
-    class Forex:
-        pass
-
-
-@dataclass
-class ImportData:
-    pd_data: pd.DataFrame
-    asset_class: Union[AssetClass.ETF, AssetClass.Stock, AssetClass.CryptoCurrency, AssetClass.MLP, AssetClass.Forex]
+from src.Foundation import utils
 
 
 class IImporter(ABC):
@@ -38,5 +16,9 @@ class IImporter(ABC):
         pass
 
     @abstractmethod
-    def find_asset_class(self) -> ImportData:
+    def find_asset_class(self) -> str:
+        pass
+
+    @abstractmethod
+    def return_data(self) -> utils.ImportData:
         pass
