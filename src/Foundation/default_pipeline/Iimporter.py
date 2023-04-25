@@ -3,6 +3,7 @@ import pandas as pd
 from dataclasses import dataclass
 from typing import Union
 from src.Foundation import utils
+from typing import Protocol
 
 
 class IImporter(ABC):

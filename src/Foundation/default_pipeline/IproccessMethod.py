@@ -8,7 +8,7 @@ from typing import Type, Any
 # Fix later
 class ProcessingMethod:
 
-    def __init__(self, data_importer: Any, data_processor: Any, saver: Any, ticker: str):
+    def __init__(self, data_importer: IImporter, data_processor: Iproccess, saver: Isave, ticker: str):
         """
         dataimporter: Importer
         dateprocessor: Iprocess
@@ -29,3 +29,6 @@ class ProcessingMethod:
         saver_data = saver.save()
 
         return saver_data
+
+# protocol
+

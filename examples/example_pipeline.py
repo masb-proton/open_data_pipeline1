@@ -57,3 +57,4 @@ class DefaultPipeline(Ipipeline):
 
 
 pm = ProcessingMethod(yf_Import, DefaultProcess, CSVSave, "SPY")
+print(pm.run_data_proccess())
