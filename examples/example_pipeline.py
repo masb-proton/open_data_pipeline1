@@ -52,10 +52,8 @@ class LinearMethod(Imodel):
         pass
 
 
-class default_pipeline(Ipipeline):
+class DefaultPipeline(Ipipeline):
     pass
 
 
 pm = ProcessingMethod(yf_Import, DefaultProcess, CSVSave, "SPY")
-
-print(pm.run_data_proccess())

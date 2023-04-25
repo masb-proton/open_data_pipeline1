@@ -4,10 +4,9 @@ from src.Foundation.default_pipeline.Iimporter import IImporter
 from abc import ABC, abstractmethod
 from typing import Type, Any
 
-
+# Any way to type-hint
 # Fix later
 class ProcessingMethod:
-
 
     def __init__(self, data_importer: Any, data_processor: Any, saver: Any, ticker: str):
         """
@@ -30,4 +29,3 @@ class ProcessingMethod:
         saver_data = saver.save()
 
         return saver_data
-
