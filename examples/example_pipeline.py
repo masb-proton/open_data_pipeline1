@@ -4,8 +4,9 @@ from src.Foundation.default_pipeline.Iimporter import IImporter
 from src.Foundation.default_pipeline.Ipipeline import Ipipeline
 from src.Foundation.utils import ImportData, AssetClass
 from src.Foundation.default_pipeline.Imodel import Imodel
-from src.Foundation.default_pipeline.Iproccess import Iproccess
+from src.Foundation.default_pipeline.Iproccess import Iproccess , IprocessPipe
 from src.Foundation.default_pipeline.IproccessMethod import ProcessingMethod
+
 import yfinance
 from datetime import datetime
 
@@ -31,12 +32,19 @@ class yf_Import(IImporter):
 
 
 class DefaultProcess(Iproccess):
-    def __init__(self, import_data: ImportData):
-        self.import_data = import_data
 
     def processor(self) -> ImportData:
         return self.import_data
+class ProccessPipeline(IprocessPipe):
 
+    def __init__(self, Iproccess_list: [Iproccess], import_data: ImportData):
+        self.Iproccess_list =Iproccess_list
+        self.import_data = import_data
+
+    def run_process_pipe(self):
+        pd_data = self.import_data
+        for process in self.Iproccess_list:
+            solution =
 
 class CSVSave(Isave):
     def save(self) -> ImportData:
