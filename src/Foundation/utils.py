@@ -1,6 +1,5 @@
 from typing import Union
 import pandas as pd
-#test1
 from dataclasses import dataclass
 
 
@@ -18,6 +17,9 @@ class AssetClass:
         pass
 
     class Forex:
+        pass
+
+    class NFT:
         pass
 
 

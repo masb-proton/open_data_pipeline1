@@ -1,14 +1,12 @@
 import pandas as pd
 from src.Foundation.default_pipeline.Isave import Isave
 from src.Foundation.default_pipeline.Iimporter import IImporter
-from src.Foundation.default_pipeline.Ipipeline import Ipipeline
+from src.Foundation.default_pipeline.Ipipeline import ModelPipeline
 from src.Foundation.utils import ImportData, AssetClass
 from src.Foundation.default_pipeline.Imodel import Imodel
-from src.Foundation.default_pipeline.Iproccess import Iproccess , IprocessPipe
+from src.Foundation.default_pipeline.Iproccess import Processor, ProcessPipeline
 from src.Foundation.default_pipeline.IproccessMethod import ProcessingMethod
-
 import yfinance
-from datetime import datetime
 
 
 # Creating import method
@@ -31,27 +29,40 @@ class yf_Import(IImporter):
         return ImportData(self._import(), data_dict[yf_asset_type])
 
 
-class DefaultProcess(Iproccess):
+# Define the process pipeline
+class ImplementedPipeline(ProcessPipeline):
+    ##################################################### User defined classes
+    # Add processor to list
+    class AddProcessor(Processor):
+        def process(self, import_data: ImportData) -> ImportData:
+            print(self.__class__)
+            import_data.pd_data = import_data.pd_data + 1
+            print(import_data.pd_data)
+            return import_data
 
-    def processor(self) -> ImportData:
-        return self.import_data
-class ProccessPipeline(IprocessPipe):
+    # Add processor to list
+    class RemoveRowProcessor(Processor):
+        def process(self, import_data: ImportData) -> ImportData:
+            print(self.__class__)
+            import_data.pd_data = import_data.pd_data.drop("High", axis=1)
+            print(import_data.pd_data)
+            return import_data
 
-    def __init__(self, Iproccess_list: [Iproccess], import_data: ImportData):
-        self.Iproccess_list =Iproccess_list
-        self.import_data = import_data
+    class MakeRandomOperation(Processor):
+        def process(self, import_data: ImportData) -> ImportData:
+            print(self.__class__)
+            import_data.pd_data = import_data.pd_data + 2
+            print(import_data.pd_data)
+            return import_data
 
-    def run_process_pipe(self):
-        pd_data = self.import_data
-        for process in self.Iproccess_list:
-            solution =
 
+# Define Save class
 class CSVSave(Isave):
     def save(self) -> ImportData:
         return self.import_data
 
 
-class LinearMethod(Imodel):
+class LinearModel(Imodel):
 
     def __init__(self):
         pass
@@ -60,9 +71,6 @@ class LinearMethod(Imodel):
         pass
 
 
-class DefaultPipeline(Ipipeline):
-    pass
-
-
-pm = ProcessingMethod(yf_Import, DefaultProcess, CSVSave, "SPY")
+pm = ProcessingMethod(yf_Import, ImplementedPipeline, CSVSave, "SPY")
+# ModelPipeline(LinearModel, pm)
 print(pm.run_data_proccess())

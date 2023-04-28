@@ -21,5 +21,6 @@ Every major commit will have associated test cases so make sure you use TDD.
 You can ask to get invited to the private repository. The private repo will have more advanced ML based models.
 
 # In the works 
- Since this is to facilitate deployment/integration add issues as you see fit. Docker Images will be the next step to automate deployment
+ Since this is to facilitate deployment/integration add issues as you see fit. Docker Images will be the next step to 
+ automate deployment
  
