@@ -37,7 +37,6 @@ class ImplementedPipeline(ProcessPipeline):
         def process(self, import_data: ImportData) -> ImportData:
             print(self.__class__)
             import_data.pd_data = import_data.pd_data + 1
-            print(import_data.pd_data)
             return import_data
 
     # Add processor to list
@@ -45,32 +44,30 @@ class ImplementedPipeline(ProcessPipeline):
         def process(self, import_data: ImportData) -> ImportData:
             print(self.__class__)
             import_data.pd_data = import_data.pd_data.drop("High", axis=1)
-            print(import_data.pd_data)
             return import_data
 
     class MakeRandomOperation(Processor):
         def process(self, import_data: ImportData) -> ImportData:
             print(self.__class__)
             import_data.pd_data = import_data.pd_data + 2
-            print(import_data.pd_data)
             return import_data
 
 
 # Define Save class
 class CSVSave(Isave):
-    def save(self) -> ImportData:
-        return self.import_data
+    def save(self):
+        print("saved")
 
 
 class LinearModel(Imodel):
 
-    def __init__(self):
-        pass
-
-    def run_model(self, DF: pd.DataFrame) -> pd.DataFrame:
-        pass
+    def run_model(self) -> pd.DataFrame:
+        print("##########################")
+        print(type(self.processed_data))
+        return self.processed_data
 
 
 pm = ProcessingMethod(yf_Import, ImplementedPipeline, CSVSave, "SPY")
-# ModelPipeline(LinearModel, pm)
-print(pm.run_data_proccess())
+
+test_pipeline = ModelPipeline(data_model=LinearModel,data_processing=pm)
+test_pipeline.run_pipeline()

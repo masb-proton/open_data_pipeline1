@@ -4,9 +4,9 @@ from src.Foundation.utils import ImportData
 
 class Isave(ABC):
 
-    def __init__(self, import_data: ImportData):
+    def __init__(self, import_data: pd.DataFrame):
         self.import_data = import_data
 
     @abstractmethod
-    def save(self) -> ImportData:
+    def save(self):
         pass
