@@ -7,6 +7,9 @@ class Processor(ABC):
     def process(self, import_data: ImportData) -> ImportData:
         pass
 
+    def __str__(self):
+        return self.__class__.__name__
+
 
 class ProcessPipeline:
 
@@ -23,4 +26,11 @@ class ProcessPipeline:
             if type(attr) is ABCMeta:
                 self.processed_data = attr().process(self.import_data)
 
+    def __str__(self):
+        list_methods = []
+        for i in dir(self.__class__):
+            attr = getattr(self.__class__, i)
+            if type(attr) is ABCMeta:
+                list_methods.append(i)
 
+        return "".join[list_methods]

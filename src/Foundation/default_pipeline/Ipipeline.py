@@ -13,5 +13,5 @@ class ModelPipeline:
     def run_pipeline(self):
         self.data_processing.run_data_proccess()
         self.data_model =self.data_model(self.data_processing.process_data.pd_data)
-        self.data_model.run_model()
-        return "Data Model Test"
+        self.result = self.data_model.run_model()
+        return self.result

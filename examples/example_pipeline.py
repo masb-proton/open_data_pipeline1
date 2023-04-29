@@ -11,6 +11,7 @@ import yfinance
 
 # Creating import method
 class yf_Import(IImporter):
+
     def __init__(self, ticker: str):
         self.ticker = ticker
         self.data_ticker = yfinance.Ticker(self.ticker)
@@ -28,27 +29,29 @@ class yf_Import(IImporter):
         yf_asset_type = self.find_asset_class()
         return ImportData(self._import(), data_dict[yf_asset_type])
 
+    def __str__(self):
+        return f"TICKER: {str(self.data)}"
+
+    def __repr__(self):
+        return f"yf_Import({self.ticker})"
+
 
 # Define the process pipeline
 class ImplementedPipeline(ProcessPipeline):
-    ##################################################### User defined classes
     # Add processor to list
     class AddProcessor(Processor):
         def process(self, import_data: ImportData) -> ImportData:
-            print(self.__class__)
             import_data.pd_data = import_data.pd_data + 1
             return import_data
 
     # Add processor to list
     class RemoveRowProcessor(Processor):
         def process(self, import_data: ImportData) -> ImportData:
-            print(self.__class__)
             import_data.pd_data = import_data.pd_data.drop("High", axis=1)
             return import_data
 
     class MakeRandomOperation(Processor):
         def process(self, import_data: ImportData) -> ImportData:
-            print(self.__class__)
             import_data.pd_data = import_data.pd_data + 2
             return import_data
 
@@ -62,12 +65,12 @@ class CSVSave(Isave):
 class LinearModel(Imodel):
 
     def run_model(self) -> pd.DataFrame:
-        print("##########################")
-        print(type(self.processed_data))
         return self.processed_data
 
 
 pm = ProcessingMethod(yf_Import, ImplementedPipeline, CSVSave, "SPY")
 
-test_pipeline = ModelPipeline(data_model=LinearModel,data_processing=pm)
+test_pipeline = ModelPipeline(data_model=LinearModel, data_processing=pm)
 test_pipeline.run_pipeline()
+
+print(test_pipeline.result)
