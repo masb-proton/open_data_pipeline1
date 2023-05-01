@@ -1,12 +1,11 @@
 from abc import ABC, abstractmethod
-import pandas as pd
-from dataclasses import dataclass
-from typing import Union
-from src.Foundation import utils
-from typing import Protocol
+from src.open_data_pipeline.Foundation import utils
 
 
 class IImporter(ABC):
+    """
+    Generalized Interface for changing the source and import to accommodate the return_data abstract method
+    """
 
     @abstractmethod
     def __init__(self):

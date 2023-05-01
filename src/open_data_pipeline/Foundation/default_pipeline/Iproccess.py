@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod, ABCMeta
-from src.Foundation.utils import ImportData
+from src.open_data_pipeline.Foundation.utils import ImportData
 
 
 class Processor(ABC):
@@ -14,6 +14,9 @@ class Processor(ABC):
 class ProcessPipeline:
 
     def __init__(self, import_data: ImportData):
+        """
+        :param import_data: data that is shared with all processes
+        """
         self.import_data = import_data
         self.processed_data = None
 

@@ -1,12 +1,12 @@
 import pandas as pd
-from src.Foundation.default_pipeline.Isave import Isave
-from src.Foundation.default_pipeline.Iimporter import IImporter
-from src.Foundation.default_pipeline.Ipipeline import ModelPipeline
-from src.Foundation.utils import ImportData, AssetClass
-from src.Foundation.default_pipeline.Imodel import Imodel
-from src.Foundation.default_pipeline.Iproccess import Processor, ProcessPipeline
-from src.Foundation.default_pipeline.IproccessMethod import ProcessingMethod
 import yfinance
+from src.open_data_pipeline.Foundation.default_pipeline.Iimporter import IImporter
+from src.open_data_pipeline.Foundation.default_pipeline.Imodel import Imodel
+from src.open_data_pipeline.Foundation.default_pipeline.Ipipeline import ModelPipeline
+from src.open_data_pipeline.Foundation.default_pipeline.Iproccess import ProcessPipeline, Processor
+from src.open_data_pipeline.Foundation.default_pipeline.IproccessMethod import ProcessingMethod
+from src.open_data_pipeline.Foundation.default_pipeline.Isave import Isave
+from src.open_data_pipeline.Foundation.utils import ImportData, AssetClass
 
 
 # Creating import method
@@ -23,7 +23,6 @@ class yf_Import(IImporter):
     def find_asset_class(self) -> str:
         return self.data_ticker.info['quoteType']
 
-    # {"data": self._import(), "quoteType": self._import()}
     def return_data(self) -> ImportData:
         data_dict = {"EQUITY": AssetClass.Stock, "ETF": AssetClass.ETF}
         yf_asset_type = self.find_asset_class()

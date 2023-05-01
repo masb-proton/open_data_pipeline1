@@ -4,23 +4,17 @@ from dataclasses import dataclass
 
 
 class AssetClass:
-    class ETF:
-        pass
+    class ETF: """ ETF Type"""
 
-    class CryptoCurrency:
-        pass
+    class CryptoCurrency: """ CryptoCurrency Type"""
 
-    class Stock:
-        pass
+    class Stock: """ Stock Type"""
 
-    class MLP:
-        pass
+    class MLP: """ MLP Type"""
 
-    class Forex:
-        pass
+    class Forex: """ Forex Type"""
 
-    class NFT:
-        pass
+    class NFT: """NFT Type"""
 
 
 @dataclass

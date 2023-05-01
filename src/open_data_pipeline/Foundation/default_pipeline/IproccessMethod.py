@@ -1,8 +1,6 @@
-from src.Foundation.default_pipeline.Isave import Isave
-from src.Foundation.default_pipeline.Iproccess import Processor, ProcessPipeline
-from src.Foundation.default_pipeline.Iimporter import IImporter
-from abc import ABC, abstractmethod
-from typing import Type, Any
+from src.open_data_pipeline.Foundation.default_pipeline.Isave import Isave
+from src.open_data_pipeline.Foundation.default_pipeline.Iproccess import ProcessPipeline
+from src.open_data_pipeline.Foundation.default_pipeline.Iimporter import IImporter
 
 
 # Any way to type-hint
@@ -22,6 +20,10 @@ class ProcessingMethod:
         self.process_data = None
 
     def run_data_proccess(self):
+        """
+        Combines import -> process -> save classes and pre-processes data
+        :return:
+        """
         data_importer = self.data_importer(self.ticker)
         import_data = data_importer.return_data()
         pipeline_processor = self.process_pipeline(import_data)
